@@ -47,3 +47,22 @@ class Channel:
         """
         youtube = build('youtube', 'v3', developerKey=api_key)
         return youtube
+
+    def to_json(self, name_of_file) -> None:
+        """
+        Метод, сохраняющий в файл значения атрибутов экземпляра Channel
+        :param name_of_file: имя файла
+        """
+
+        json_dict = {
+            "id": self.__channel_id,
+            "title": self.title,
+            "description": self.description,
+            "url": self.url,
+            "subscriberCount": self.subscriber_count,
+            "videoCount": self.video_count,
+            "viewCount": self.view_count
+        }
+
+        with open(name_of_file, 'w') as file:
+            json.dump(json_dict, file)
