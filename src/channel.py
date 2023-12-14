@@ -29,6 +29,14 @@ class Channel:
         """
         return f'{self.title} ({self.url})'
 
+    def __add__(self, other: 'Channel') -> int:
+        """
+        Складывает количество подписчиков в двух каналах
+        :param other: экзепляр класса Channel
+        :return: общее количество подписчиков в двух каналах
+        """
+        return int(self.subscriber_count) + int(other.subscriber_count)
+
     def get_info_channel(self):
         """
         Метод, возвращающий информацию о канале
