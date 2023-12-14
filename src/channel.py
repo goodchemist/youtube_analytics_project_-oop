@@ -15,10 +15,10 @@ class Channel:
         request = self.get_info_channel()
 
         self.title = request['items'][0]['snippet']['title']
-        self.video_count = request['items'][0]['statistics']['videoCount']
+        self.video_count = int(request['items'][0]['statistics']['videoCount'])
         self.description = request['items'][0]['snippet']['description']
-        self.view_count = request['items'][0]['statistics']['viewCount']
-        self.subscriber_count = request['items'][0]['statistics']['subscriberCount']
+        self.view_count = int(request['items'][0]['statistics']['viewCount'])
+        self.subscriber_count = int(request['items'][0]['statistics']['subscriberCount'])
         self.url = 'https://www.youtube.com/channel/' + self.__channel_id
 
     def __str__(self):
@@ -43,7 +43,7 @@ class Channel:
         :param other: экзепляр класса Channel
         :return: разница в количестве подписчиков между первым и вторым каналами
         """
-        return int(self.subscriber_count) - int(other.subscriber_count)
+        return self.subscriber_count - other.subscriber_count
 
     def __gt__(self, other):
         """
@@ -51,7 +51,7 @@ class Channel:
         :param other: экзепляр класса Channel
         :return: True или False
         """
-        return int(self.subscriber_count) > int(other.subscriber_count)
+        return self.subscriber_count > other.subscriber_count
 
     def __ge__(self, other):
         """
@@ -59,7 +59,7 @@ class Channel:
         :param other: экзепляр класса Channel
         :return: True или False
         """
-        return int(self.subscriber_count) >= int(other.subscriber_count)
+        return self.subscriber_count >= other.subscriber_count
 
     def __lt__(self, other):
         """
@@ -67,7 +67,7 @@ class Channel:
         :param other: экзепляр класса Channel
         :return: True или False
         """
-        return int(self.subscriber_count) < int(other.subscriber_count)
+        return self.subscriber_count < other.subscriber_count
 
     def __le__(self, other):
         """
@@ -75,7 +75,7 @@ class Channel:
         :param other: экзепляр класса Channel
         :return: True или False
         """
-        return int(self.subscriber_count) <= int(other.subscriber_count)
+        return self.subscriber_count <= other.subscriber_count
 
     def __eq__(self, other):
         """
@@ -83,7 +83,7 @@ class Channel:
         :param other: экзепляр класса Channel
         :return: True или False
         """
-        return int(self.subscriber_count) == int(other.subscriber_count)
+        return self.subscriber_count == other.subscriber_count
 
     def get_info_channel(self):
         """
