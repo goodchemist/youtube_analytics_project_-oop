@@ -21,6 +21,14 @@ class Channel:
         self.subscriber_count = request['items'][0]['statistics']['subscriberCount']
         self.url = 'https://www.youtube.com/channel/' + self.__channel_id
 
+    def __str__(self):
+        """
+        Возвращает информацию об объекте класса в удобном для пользователя виде
+
+        :return: f-строка с названием канала и url-ссылкой
+        """
+        return f'{self.title} ({self.url})'
+
     def get_info_channel(self):
         """
         Метод, возвращающий информацию о канале
