@@ -37,6 +37,14 @@ class Channel:
         """
         return int(self.subscriber_count) + int(other.subscriber_count)
 
+    def __sub__(self, other):
+        """
+        Вычитает количество подписчиков одного канала из другого.
+        :param other: экзепляр класса Channel
+        :return: разница в количестве подписчиков между первым и вторым каналами
+        """
+        return int(self.subscriber_count) - int(other.subscriber_count)
+
     def get_info_channel(self):
         """
         Метод, возвращающий информацию о канале
