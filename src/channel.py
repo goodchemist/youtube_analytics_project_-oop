@@ -53,6 +53,14 @@ class Channel:
         """
         return int(self.subscriber_count) > int(other.subscriber_count)
 
+    def __ge__(self, other):
+        """
+        Метод для операции сравнения "больше или равно" по числу подписчиков.
+        :param other: экзепляр класса Channel
+        :return: True или False
+        """
+        return int(self.subscriber_count) >= int(other.subscriber_count)
+
     def get_info_channel(self):
         """
         Метод, возвращающий информацию о канале
