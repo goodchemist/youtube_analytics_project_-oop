@@ -19,6 +19,14 @@ class Video:
                                                ).execute()
 
         self.video_title: str = video_response['items'][0]['snippet']['title']  # название видео
-        self.view_count: int = video_response['items'][0]['statistics']['viewCount']  # ссылка на видео
-        self.like_count: int = video_response['items'][0]['statistics']['likeCount']  # количество просмотров
-        self.comment_count: int = video_response['items'][0]['statistics']['commentCount']  # количество лайков
+        self.view_count: int = int(video_response['items'][0]['statistics']['viewCount'])  # ссылка на видео
+        self.like_count: int = int(video_response['items'][0]['statistics']['likeCount'])  # количество просмотров
+        self.comment_count: int = int(video_response['items'][0]['statistics']['commentCount'])  # количество лайков
+
+    def __str__(self) -> str:
+        """
+        Возвращает информацию об объекте класса в удобном для пользователя виде
+
+        :return: название видео
+        """
+        return self.video_title
