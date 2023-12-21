@@ -30,3 +30,16 @@ class Video:
         :return: название видео
         """
         return self.video_title
+
+
+class PLVideo(Video):
+
+    def __init__(self, video_id: str, playlist_id: str) -> None:
+        """
+        Экземпляр инициализируется по id видео и id плейлиста.
+        :param video_id:
+        :param playlist_id:
+        """
+        super().__init__(video_id)
+
+        self.playlist_id = playlist_id
