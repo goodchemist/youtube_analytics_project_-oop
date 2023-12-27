@@ -9,6 +9,7 @@ api_key: str = os.getenv('YT_API_KEY')
 class PlayList:
 
     def __init__(self, playlist_id: str) -> None:
+
         self.__playlist_id = playlist_id  # id плейлиста
 
         self.url = f'https://www.youtube.com/playlist?list={self.__playlist_id}'  # ссылкa на плейлист
@@ -20,7 +21,8 @@ class PlayList:
     @classmethod
     def get_service(cls):
         """
-        Класс-метод, возвращающий объект для работы с YouTube API
+        Класс-метод, возвращающий объект для работы с YouTube API.
+
         :return: googleapiclient.discovery.Resource object
         """
         youtube = build('youtube', 'v3', developerKey=api_key)
@@ -29,6 +31,7 @@ class PlayList:
     def get_info_by_id(self):
         """
         Метод, возвращающий информацию о плейлисте.
+
         :return: словарь с информацией о плейлисте
         """
         youtube = self.get_service()
@@ -38,6 +41,7 @@ class PlayList:
     def get_video_response(self, video_ids):
         """
         Метод, возвращающий информацию о видео из плейлиста по их id.
+
         :param video_ids: список всех id видео из плейлиста
         :return: словарь с информацией о видео из плейлиста по их id.
         """
@@ -50,6 +54,7 @@ class PlayList:
     def get_info_about_playlist_videos(self):
         """
         Метод, возвращающий информацию об видео из плейлиста.
+
         :return: словарь с информацией об видео из плейлиста.
         """
         youtube = self.get_service()
@@ -63,6 +68,7 @@ class PlayList:
     def get_video_ids(playlist_videos) -> list:
         """
         Метод, возвращающий список всех id видео из плейлиста.
+
         :param playlist_videos: словарь с информацией об видео из плейлиста
         :return: список всех id видео из плейлиста.
         """
@@ -98,3 +104,26 @@ class PlayList:
             total_duration_ += duration_timedelta
 
         return total_duration_
+
+    def show_best_video(self) -> str:
+        """
+        Возвращает ссылку на самое популярное видео из плейлиста (по количеству лайков).
+
+        :return: ссылка на самое популярное видео
+        """
+        playlist_videos = self.get_info_about_playlist_videos()
+
+        video_ids = self.get_video_ids(playlist_videos)
+
+        video_response = self.get_video_response(video_ids)
+
+        # Get dictionary with info about likes count for every video
+        all_video = {}
+
+        for id_, video in zip(video_ids, video_response['items']):
+            like_count = video['statistics']['likeCount']
+            all_video[id_] = like_count
+
+        best_video = max(all_video, key=all_video.get)
+
+        return f'https://youtu.be/{best_video}'
