@@ -18,10 +18,20 @@ class Video:
                                                id=self.video_id
                                                ).execute()
 
-        self.video_title: str = video_response['items'][0]['snippet']['title']  # название видео
-        self.view_count: int = int(video_response['items'][0]['statistics']['viewCount'])  # ссылка на видео
-        self.like_count: int = int(video_response['items'][0]['statistics']['likeCount'])  # количество просмотров
-        self.comment_count: int = int(video_response['items'][0]['statistics']['commentCount'])  # количество лайков
+        try:
+            len(video_response['items']) / len(video_response['items'])
+
+        except ZeroDivisionError:
+            self.video_title = None  # название видео
+            self.view_count = None  # ссылка на видео
+            self.like_count = None  # количество просмотров
+            self.comment_count = None  # количество лайков
+
+        else:
+            self.video_title: str = video_response['items'][0]['snippet']['title']  # название видео
+            self.view_count: int = int(video_response['items'][0]['statistics']['viewCount'])  # ссылка на видео
+            self.like_count: int = int(video_response['items'][0]['statistics']['likeCount'])  # количество просмотров
+            self.comment_count: int = int(video_response['items'][0]['statistics']['commentCount'])  # количество лайков
 
     def __str__(self) -> str:
         """
