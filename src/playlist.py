@@ -10,6 +10,12 @@ class PlayList:
 
     def __init__(self, playlist_id: str) -> None:
 
+        """
+        Экземпляр инициализируется по id плейлиста. Дальше все данные подтягиваются по API.
+
+        :param playlist_id: id плейлиста
+        """
+
         self.__playlist_id = playlist_id  # id плейлиста
 
         self.url = f'https://www.youtube.com/playlist?list={self.__playlist_id}'  # ссылкa на плейлист
@@ -43,7 +49,7 @@ class PlayList:
         Метод, возвращающий информацию о видео из плейлиста по их id.
 
         :param video_ids: список всех id видео из плейлиста
-        :return: словарь с информацией о видео из плейлиста по их id.
+        :return: словарь с информацией о видео из плейлиста по их id
         """
         youtube = self.get_service()
         video_response = youtube.videos().list(part='contentDetails,statistics',
@@ -55,7 +61,7 @@ class PlayList:
         """
         Метод, возвращающий информацию об видео из плейлиста.
 
-        :return: словарь с информацией об видео из плейлиста.
+        :return: словарь с информацией об видео из плейлиста
         """
         youtube = self.get_service()
         playlist_videos = youtube.playlistItems().list(playlistId=self.__playlist_id,
@@ -70,7 +76,7 @@ class PlayList:
         Метод, возвращающий список всех id видео из плейлиста.
 
         :param playlist_videos: словарь с информацией об видео из плейлиста
-        :return: список всех id видео из плейлиста.
+        :return: список всех id видео из плейлиста
         """
         video_ids: list[str] = [video['contentDetails']['videoId'] for video in playlist_videos['items']]
         return video_ids
@@ -80,7 +86,7 @@ class PlayList:
         """
         Возвращает суммарную длительность плейлиста.
 
-        :return: объект класса `datetime.timedelta`
+        :return: объект класса datetime.timedelta
         """
 
         playlist_videos = self.get_info_about_playlist_videos()
